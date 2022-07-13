@@ -1,6 +1,5 @@
 package com.qa.dfespringbootfinalproject.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,38 +12,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.dfespringbootfinalproject.entities.Employee;
+import com.qa.dfespringbootfinalproject.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 	
-	private List<Employee> staff = new ArrayList<>();
+	private EmployeeService service;
+	
+	public EmployeeController(EmployeeService service) {
+		this.service = service;
+	}
 	
 	
-	@GetMapping("/hi")
-	public String hi( ) {
-		return "Good morning";
+	@GetMapping("getAll")
+	public List<Employee> getAll() {
+		return this.service.getAll();
+	}
+	@GetMapping("getById/{id}")
+	public Employee getById(@PathVariable Long id) {
+		return this.service.getById(id);
+		
 	}
 
 	@PostMapping("/create")
 	public Employee create(@RequestBody Employee staff) {
-		this.staff.add(staff);
-		return this.staff.get(this.staff.size() -1);	
+		return this.service.create(staff);	
+		
 	}
 	
 	@PutMapping("/update/{id}")
-	public Employee update(@PathVariable int id, @RequestBody Employee staff) {
+	public Employee update(@PathVariable Long id, @RequestBody Employee staff) {
+		return this.service.update(id, staff);
 		
-		this.staff.remove(id);
 		
-		this.staff.add(id, staff);
-		
-		return this.staff.get(id);	
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public Employee delete(@PathVariable int id) {
-		return this.staff.remove(id);
-		
+	public boolean delete(@PathVariable Long id) {
+		return this.service.delete(id);
+			
 	}
 }
+
+
