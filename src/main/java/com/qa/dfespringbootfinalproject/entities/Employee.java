@@ -113,13 +113,15 @@ public class Employee {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
+
 	@Override
-    public int hashCode() {
-    	return Objects.hash(id, firstName, lastName, email,  department, address);
-    	
-    }
-	
+	public int hashCode() {
+		return Objects.hash(address, department, email, firstName, id, lastName);
+	}
+
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -128,10 +130,11 @@ public class Employee {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		return id == other.id && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(lastName,  other.lastName) && Objects.equals(email,  other.email) 
-				&& Objects.equals(department, other.department) && Objects.equals(address, other.address);
-					
+		return Objects.equals(address, other.address) && Objects.equals(department, other.department)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && id == other.id
+				&& Objects.equals(lastName, other.lastName);
 	}
+	
+	
 	
 }
