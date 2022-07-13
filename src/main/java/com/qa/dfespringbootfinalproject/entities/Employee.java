@@ -131,14 +131,7 @@ public class Employee {
 		return id == other.id && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName,  other.lastName) && Objects.equals(email,  other.email) 
 				&& Objects.equals(department, other.department) && Objects.equals(address, other.address);
-		
-		
-				
+					
 	}
-
-
-	private long id(long id2) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 }
